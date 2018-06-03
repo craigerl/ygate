@@ -5,8 +5,8 @@ import telnetlib
 import time
 
 HOST = "noam.aprs2.net"     # north america tier2 servers round robin
-USER = "KM6LYW-1"
-PASS = "22452"
+USER = "KM6XXX-1"
+PASS = "11111"
 
 try:
   tn = telnetlib.Telnet(HOST, 14580)
