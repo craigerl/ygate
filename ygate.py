@@ -5,6 +5,7 @@ import telnetlib
 import time
 import threading
 
+
 HOST = "noam.aprs2.net"     # north america tier2 servers round robin
 USER = "KM6XXX-1"
 PASS = "00000"
@@ -17,8 +18,8 @@ except Exception, e:
 time.sleep(2)
 #login
 tn.write("user " + USER + " pass " +  PASS + " vers ygate.py 0.99\n" )
-#send position, please edit and make your own
-tn.write("KM6XXX-1>SXUTWP,WIDE1-1:`0Z%l\"W-\`\"9g}Yaesu Ygate https://github.com/craigerl/ygate \n")
+#send position, please uncomment, then change your position and call
+#tn.write("KM6XXX-1>SXUTWP,WIDE1-1:!3899.70NR12099.15W&Yaesu Ygate https://github.com/craigerl/ygate \n")
 
 tnline=""
 for char in tn.read_until("\n",100):
