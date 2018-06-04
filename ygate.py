@@ -50,10 +50,10 @@ while True:
      payload = ser.readline().strip() 
      packet = routing + payload
      if len(payload) == 0:
-       print ">>> No payload, not gated:  " + packet 
+       print ">>> No payload, not gated:  " + packet + "\n"
        break 
      if ',TCP' in routing:
-       print ">>> Packet from internet not gated: " + packet
+       print ">>> Packet from internet not gated: " + packet + "\n"
        break 
      print  packet
      tn.write(packet + '\n')
