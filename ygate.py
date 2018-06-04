@@ -46,12 +46,12 @@ while True:
   line = ser.readline().strip()
   if "] <UI" in line:
      routing = line.strip()
+     routing = re.sub(' \[.*\] <UI.*>:', ':', routing)  # drop nmea/yaesu gunk
      payload = ser.readline().strip() 
      packet = routing + payload
      if len(payload) == 0:
        print ">>> No payload, not gated:  " + packet
        break 
-     packet = re.sub(' \[.*\] <UI.*>:', ':', packet)
      if ',TCP' in routing:
        print ">>> Packet from internet not gated: " + packet + "\n"
        break 
