@@ -8,6 +8,6 @@ data port.  This script will login to an aprsis server, and relay the
 packet data after reformatting the reduculous output from the radio into
 real APRS packet strings.
 
-Be sure to set your callsign and password and position in the script.
+Be sure to set your callsign, password and position in the script.
 
 
