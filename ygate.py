@@ -31,7 +31,7 @@ import socket
 HOST = "noam.aprs2.net"     # north america tier2 servers round robin
 USER = "KM6XXX-1"
 PASS = "00000"
-POSITION = "3854.70NR12056.15W"
+POSITION = "3899.70NR12099.15W"
 
 
 def signal_handler(signal, frame): # kill mainline and thread on ctrl-c
