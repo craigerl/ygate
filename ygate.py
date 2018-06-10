@@ -1,9 +1,9 @@
 #!/usr/bin/python  -u 
 #
 #
-#  ygate - Yaesu igate
+#  ygate - Yaesu igate                       General Public License v2
 #
-#  (C)2018 Craig Lamparter     General Public License v2
+#  (C)2018 Craig Lamparter
 #
 #  This software and a raspberry pi will turn your Yaesu radio (FT1D, FTM-400) into 
 #  a receive-only APRS igate.  All APRS packet traffic your radio hears will be
@@ -62,7 +62,7 @@ s = tn.get_socket()
 s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 
 #login
-tn.write("user " + USER + " pass " +  PASS + " vers ygate.py 0.99\n" )
+tn.write("user " + USER + " pass " +  PASS + " vers ygate.py 0.99 alpha\n" )
 
 #print the first two lines from aprsis server to see version and server name as fyi
 tnline = tn.read_until('\n')
@@ -79,31 +79,40 @@ ser = serial.Serial('/dev/ttyUSB0', 9600)
 # read nmea9 sentences from yaesu radio
 # arrange them into aprs packet strings
 # inject our callsign in the routing chain
-# drop packets which shouldn't be forwarded to internet
+# drop packets which shouldn't be forwarded to APRS-IS  
 #
 # Yaesu output looks like this:
 #    AA6I>APOTU0,K6IXA-3,VACA,WIDE2* [06/02/18 13:47:54] <UI>:
 #
 #    /022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
 #
-# which we rearrange into a real APRS packet like this:
+# after removing a random number of yaesu-injected line feeds we rearrange into a real APRS packet like this:
 #    AA6I>APOTU0,K6IXA-3,VACA,WIDE2*,qAO,KM6XXX-1:/022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
 #  
 while True:
-  line = ser.readline().strip()
-  if "] <UI" in line:
-     routing = line.strip()
-     routing = re.sub(' \[.*\] <UI.*>:', ',qAO,' + USER + ':', routing)  # drop nmea/yaesu gunk, add us to chain
-     payload = ser.readline().strip() 
+  line = ser.readline().strip('\n\r')
+  if  re.search('\[.*\] <UI.*>:', line):      # Yaesu's nmea9-formatted suffix means we found a routing block
+     routing = line
+     routing = re.sub(' \[.*\] <UI.*>:', ',qAO,' + USER + ':', routing)  # drop nmea/yaesu gunk, append us to routing block
+     payload = ser.readline().strip('\n\r')    # next non-empty line is the payload, strip random number of yaesu line feeds
      packet = routing + payload
      if len(payload) == 0:
-       print ">>> No payload, not gated:  " + packet 
+       print ">>> No payload, not gated:  " + packet   # aprs-is servers also notice and drop empty packets, no spec for this
        continue
-     if ',TCP' in payload:
-       print ">>> Internet packet not gated: " + packet 
+     if re.search(',TCP', routing):            # drop packets sourced from internet
+       print ">>> Internet packet not gated:  " + packet 
+       continue
+     if re.search('^}.*,TCP.*:', payload):     # drop packets sourced from internet in third party packets
+       print ">>> Internet packet not gated:  " + packet 
+       continue
+     if 'RFONLY' in routing:
+       print ">>> RFONLY, not gated: " + packet 
+       continue
+     if 'NOGATE' in routing:
+       print ">>> NOGATE, not gated: " + packet 
        continue
      print  packet
-     tn.write(packet + '\r\n')  # spec calls for cr/lf, but just lf works
+     tn.write(packet + '\r\n')  # spec calls for cr/lf, just lf worked in practice too
 
 ser.close
 
