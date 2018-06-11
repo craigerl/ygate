@@ -1,7 +1,7 @@
 
 ygate - Yaesu igate
 
-(C)2018 Craig Lamparter                   General Public License v2
+(C)2018 Craig Lamparter         \ \ \ \ \ \          General Public License v2
 
 This software and a raspberry pi will turn your Yaesu radio (FT1D, FTM-400) into
 a receive-only APRS igate.  All APRS packet traffic your radio hears will be
