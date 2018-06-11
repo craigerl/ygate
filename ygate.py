@@ -87,7 +87,7 @@ ser = serial.Serial('/dev/ttyUSB0', 9600)
 #    /022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
 #
 # after removing a random number of yaesu-injected line feeds we rearrange into a real APRS packet like this:
-#    AA6I>APOTU0,K6IXA-3,VACA,WIDE2*,qAO,KM6XXX-1:/022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
+#    AA6I>APOTU0,K6IXA-3,VACA,WIDE2*,qAR,KM6XXX-1:/022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
 #  
 while True:
   line = ser.readline().strip('\n\r')
