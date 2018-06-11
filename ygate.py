@@ -93,7 +93,7 @@ while True:
   line = ser.readline().strip('\n\r')
   if  re.search('\[.*\] <UI.*>:', line):      # Yaesu's nmea9-formatted suffix means we found a routing block
      routing = line
-     routing = re.sub(' \[.*\] <UI.*>:', ',qAO,' + USER + ':', routing)  # drop nmea/yaesu gunk, append us to routing block
+     routing = re.sub(' \[.*\] <UI.*>:', ',qAR,' + USER + ':', routing)  # drop nmea/yaesu gunk, append us to routing block
      payload = ser.readline().strip('\n\r')    # next non-empty line is the payload, strip random number of yaesu line feeds
      packet = routing + payload
      if len(payload) == 0:
