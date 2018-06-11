@@ -18,9 +18,11 @@ Be sure to set your callsign, password and position below.
 
 
 todo:
+- [x] translate yaesu output into aprs packets, upload to aprs-is servers
 - [ ] invalid callsign detection, currently filtered by aprs-is servers
 - [X] convert telnet sandbox to socket(s)
 - [ ] lower latency  
 - [ ] duplicate detection and suppression with timer
+- [ ] binary inspection, handle all encodings
 
 
