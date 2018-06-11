@@ -44,31 +44,30 @@ signal.signal(signal.SIGINT, signal_handler)
 def send_my_position():     # thread that says our name and position every 10 mins (1200secs)
   threading.Timer(1200, send_my_position).start()
   position_string = USER + ">APRS,TCPIP*:!" + POSITION + "&Yaesu Ygate https://github.com/craigerl/ygate \n"
-  tn.write(position_string)
+  sock.send(position_string)
   print position_string.strip()
 
 
-#connect to aprs server using telnet
-try:
-  tn = telnetlib.Telnet(HOST, 14580)
+# Setup socket connection to APRS-IS server
+try: 
+  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  sock.connect((HOST, 14580))
 except Exception, e:
-  print "Telnet session failed.\n"
-  sys.exit(-1)
+  print "Unable to connect to APRS-IS server.\n"
+  os._exit(1)
+sock_file = sock.makefile(mode='r', bufsize=0 )
+sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)  # disable nagle algorithm   
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 512)  # buffer size
+
 
 time.sleep(2)
 
-#disable nagle algorithm for more real-time performance
-s = tn.get_socket()
-s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-
 #login
-tn.write("user " + USER + " pass " +  PASS + " vers ygate.py 0.99 alpha\n" )
+sock.send("user " + USER + " pass " +  PASS + " vers ygate.py 0.99\n" )
 
 #print the first two lines from aprsis server to see version and server name as fyi
-tnline = tn.read_until('\n')
-print(tnline.strip())
-tnline = tn.read_until('\n')
-print(tnline.strip())
+print sock_file.readline().strip()
+print sock_file.readline().strip()
 
 #start position beacon thread
 send_my_position()
@@ -87,7 +86,7 @@ ser = serial.Serial('/dev/ttyUSB0', 9600)
 #    /022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
 #
 # after removing a random number of yaesu-injected line feeds we rearrange into a real APRS packet like this:
-#    AA6I>APOTU0,K6IXA-3,VACA,WIDE2*,qAR,KM6XXX-1:/022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
+#    AA6I>APOTU0,K6IXA-3,VACA,WIDE2*,qAO,KM6XXX-1:/022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
 #  
 while True:
   line = ser.readline().strip('\n\r')
@@ -112,8 +111,9 @@ while True:
        print ">>> NOGATE, not gated: " + packet 
        continue
      print  packet
-     tn.write(packet + '\r\n')  # spec calls for cr/lf, just lf worked in practice too
+     sock.send(packet + '\r\n')  # spec calls for cr/lf, just lf worked in practice too
 
 ser.close
-
+sock.shutdown(0)
+sock.close()
 
