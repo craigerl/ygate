@@ -18,9 +18,9 @@ Be sure to set your callsign, password and position below.
 
 
 todo:
-- [  ] invalid callsign detection, currently filtered by aprs-is servers
+- [ ] invalid callsign detection, currently filtered by aprs-is servers
 - [X] convert telnet sandbox to socket(s)
-- [  ] lower latency  
-- [  ] duplicate detection and suppression with timer
+- [ ] lower latency  
+- [ ] duplicate detection and suppression with timer
 
 
