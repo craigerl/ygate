@@ -13,7 +13,7 @@ port. This script will login to an aprsis server, and relay the packet data
 after reformatting the reduculous output from the radio into real APRS packet
 strings.
 
-Be sure to set your callsign, password and position below.
+Be sure to set your callsign, password and position at the top of the script.
 
 
 
@@ -24,5 +24,11 @@ todo:
 - [ ] lower latency  
 - [ ] duplicate detection and suppression with timer
 - [ ] binary inspection, handle all encodings
+
+Testing/QA:
+- [x] Yaesu FTM-400
+- [ ] Yaesu FT1DR
+- [ ] Yaesu FT2DR
+- [ ] Yaesu FTM-100
 
 
