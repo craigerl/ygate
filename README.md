@@ -29,6 +29,6 @@ Testing/QA:
 - [x] Yaesu FTM-400
 - [ ] Yaesu FT1DR
 - [ ] Yaesu FT2DR
-- [ ] Yaesu FTM-100
+- [x] Yaesu FTM-100
 
 
