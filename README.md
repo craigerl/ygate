@@ -27,7 +27,7 @@ To do list:
 
 Testing/QA:
 - [x] Yaesu FTM-400
-- [ ] Yaesu FT1DR
+- [ ] Yaesu FT1DR  (not possible, aprs data on com port incomplete)
 - [ ] Yaesu FT2DR
 - [x] Yaesu FTM-100
 
