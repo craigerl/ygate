@@ -21,8 +21,6 @@ To do list:
 - [ ] invalid callsign detection, currently filtered by aprs-is servers
 - [X] convert telnet sandbox to socket(s)
 - [ ] lower latency  
-- [ ] duplicate detection and suppression with timer
-- [ ] binary inspection, handle all encodings
 
 
 Testing/QA:
