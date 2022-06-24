@@ -35,7 +35,7 @@ Testing/QA:
 
 ## Install
 
-Copy ygate.py to your system, Raspberry Pi OS Buster, or any Linux system with Python3.
+Copy **ygate.py** to your system, Raspberry Pi OS Buster, or any Linux system with Python3.
 
 Edit the top of the file, modify three variables:
 
@@ -45,7 +45,15 @@ Edit the top of the file, modify three variables:
         
 Your APRS password may be generated here:  https://apps.magicbug.co.uk/passcode/
 
-The 3899.70N  is your latitude with the decimal shifted, similar for longitude.
+In the POSITION, put your latitude/longitude with the decimal shifted two places to the right, similar for longitude.
+
+For example:
+
+38.9970 North
+120.9915 West
+
+becomes 3899.70NR12099.15W"
+
 
 ## Example
 
