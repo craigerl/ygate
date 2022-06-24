@@ -57,14 +57,13 @@ becomes "3899.70NR12099.15W"
 On the Yaesu radio:
 
 APRS Menu
-  Modem: on
+        Modem: on
   
 Data menu
-  Speed: 9600
-  Output: Packet
-  WP Format: NMEA9
+        Speed: 9600
+        Output: Packet
+        WP Format: NMEA9
   
-
 
 ## Example
 
