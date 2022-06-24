@@ -39,18 +39,13 @@ Copy [ygate.py](https://raw.githubusercontent.com/craigerl/ygate/master/ygate.py
 
 Make the file executable, run the command:
 
-    chmod 755 ygate.py
-
+    chmod 755 ygate.py
 
 Edit the top of the file (**nano ygate.py**), modify three variables:
 
         USER = "KM6XXX-1"
         PASS = "00000"
         POSITION = "3899.70NR12099.15W"
-
-Make the file executable, run the command:
-
-    chmod 755 ygate.py
         
 Your APRS password may be generated here:  https://apps.magicbug.co.uk/passcode/
 
