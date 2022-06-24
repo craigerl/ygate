@@ -76,6 +76,8 @@ becomes "3899.70NR12099.15W"
 
     **./ygate.py**  
 
+## Output
+
     # aprsc 2.1.10-gd72a17c
     # logresp KM6LYW-4 verified, server T2PR
     W6SCR>APMI06,W6SCR-4*,qAR,KM6LYW-4:@241522z3942.75N/12147.10W/Butte SAR Headquarters 14.0volts
