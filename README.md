@@ -1,11 +1,11 @@
 
 ygate - Yaesu igate
 
-(C)2018 Craig Lamparter         \ \ \ \ \ \          General Public License v2
+(C)2022 Craig Lamparter         \ \ \ \ \ \          General Public License v2
 
-This software and a raspberry pi will turn your Yaesu radio (FT1D, FTM-400) into
-a receive-only APRS igate.  All APRS packet traffic your radio hears will be
-forwarded to the Internet (APRS-IS Servers) for further routing.
+This software and a raspberry pi will turn your Yaesu radio (FTM-100,FTM-400)
+into a receive-only APRS igate.  All APRS packet traffic your radio hears will
+be forwarded to the Internet (APRS-IS Servers) for further routing.
 
 Connect your Yaesu amateur radio with APRS to a Raspberry Pi (or PC) with
 the Yaesu-supplied USB cable. Set the radio to output "packet" data in "nmea9"
@@ -22,13 +22,13 @@ To do list:
 - [X] convert telnet sandbox to socket(s)
 - [ ] lower latency  
 - [ ] duplicate detection and suppression with timer
-- [ ] binary inspection, handle all encodings
+- [ ] binary inspection, handle all encodings, utf-8 errors ignored for now
+- [ ] reconnect socket after server disconnets 
 
 
 Testing/QA:
 - [x] Yaesu FTM-400
-- [ ] Yaesu FT1DR
-- [ ] Yaesu FT2DR
+- [ ] Yaesu FT1DR/FT5DR
 - [x] Yaesu FTM-100
 
 
