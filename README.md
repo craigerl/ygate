@@ -72,10 +72,10 @@ becomes "3899.70NR12099.15W"
     WP Format: NMEA9
   
 
-## Example
+## Run ygate
 
 
-    $ ./ygate.py  
+    **./ygate.py**  
 
     # aprsc 2.1.10-gd72a17c
     # logresp KM6LYW-4 verified, server T2PR
