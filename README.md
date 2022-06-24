@@ -74,7 +74,6 @@ becomes "3899.70NR12099.15W"
 
 ## Run ygate
 
-
     **./ygate.py**  
 
     # aprsc 2.1.10-gd72a17c
