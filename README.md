@@ -37,6 +37,8 @@ Testing/QA:
 
 Download [ygate.py](https://raw.githubusercontent.com/craigerl/ygate/master/ygate.py) to your system, Raspberry Pi OS Buster, or any Linux system with Python3.
 
+    wget https://raw.githubusercontent.com/craigerl/ygate/master/ygate.py
+
 Make the file executable, run the command:
 
     chmod 755 ygate.py
