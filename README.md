@@ -54,7 +54,7 @@ For example:
 
 becomes "3899.70NR12099.15W"
 
-On the Yaesu radio:
+On the Yaesu radio hold down the [DISP/Setup] button, and change the following values:
 
 **APRS Menu**
 
