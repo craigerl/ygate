@@ -59,7 +59,7 @@ For example:
 becomes "3899.70NR12099.15W"
 
 
-##Configure Radio 
+## Configure Radio 
 
 Hold down the [DISP/Setup] button, and change the following values:
 
