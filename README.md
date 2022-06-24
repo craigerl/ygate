@@ -37,7 +37,12 @@ Testing/QA:
 
 Copy [ygate.py](https://raw.githubusercontent.com/craigerl/ygate/master/ygate.py) to your system, Raspberry Pi OS Buster, or any Linux system with Python3.
 
-Edit the top of the file, modify three variables:
+Make the file executable, run the command:
+
+    chmod 755 ygate.py
+
+
+Edit the top of the file (**nano ygate.py**), modify three variables:
 
         USER = "KM6XXX-1"
         PASS = "00000"
