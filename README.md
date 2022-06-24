@@ -37,12 +37,12 @@ Testing/QA:
 ## Example
 
 
-    $ ./ygate.py  
+$ ./ygate.py  
 
-  # aprsc 2.1.10-gd72a17c
-  # logresp KM6LYW-4 verified, server T2PR
-  KM6LYW-4>APRS,TCPIP*:!3854.70NR12056.15W&Yaesu Ygate https://github.com/craigerl/ygate
-  W4YS-1>SYQYXQ,K6FGA-1*,WIDE2-1,qAR,KM6LYW-4:`0?5pzmv/"F?}
+\# aprsc 2.1.10-gd72a17c
+\# logresp KM6LYW-4 verified, server T2PR
+KM6LYW-4>APRS,TCPIP*:!3854.70NR12056.15W&Yaesu Ygate https://github.com/craigerl/ygate
+W4YS-1>SYQYXQ,K6FGA-1*,WIDE2-1,qAR,KM6LYW-4:`0?5pzmv/"F?}
 W4YS-1>SYQYXQ,K6FGA-1,KM6ZTH-4*,qAR,KM6LYW-4:`0?5pzmv/"F?}
 W4YS-1>SYQYXQ,K6FGA-1,ACARC-1,WIDE2*,qAR,KM6LYW-4:`0?5pzmv/"F?}
 GAPGTE>APDW15,K6FGA-1*,WIDE2,qAR,KM6LYW-4:!3845.26NT12058.60W&PHG7290GAPGTE Rescue RX/TX igate KI6PPU
