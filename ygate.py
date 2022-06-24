@@ -39,7 +39,6 @@ def signal_handler(signal, frame): # kill mainline and thread on ctrl-c
    os._exit(0)  
 signal.signal(signal.SIGINT, signal_handler)
 
-
 def send_my_position():     # thread that says our name and position every 10 mins (1200secs)
   threading.Timer(1200, send_my_position).start()
   position_string = USER + ">APRS,TCPIP*:!" + POSITION + "&Yaesu Ygate https://github.com/craigerl/ygate \n"
@@ -59,11 +58,9 @@ sock_file = sock.makefile(mode='r' )
 sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)  # disable nagle algorithm   
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 512)  # buffer size
 
-
 time.sleep(2)
 
 #login
-#sock.send("user " + USER + " pass " +  PASS + " vers ygate.py 0.99\n" )
 loginstring=bytes("user " + USER + " pass " +  PASS + " vers ygate.py 1.00\n", 'utf-8')
 sock.send(loginstring)
 
@@ -91,13 +88,15 @@ ser = serial.Serial('/dev/ttyUSB0', 9600)
 #    AA6I>APOTU0,K6IXA-3,VACA,WIDE2*,qAO,KM6XXX-1:/022047z3632.30N/11935.16Wk136/055/A=000300ENROUTE
 #  
 while True:
-  #line = ser.readline().strip('\n\r')
-  line = ser.readline().strip(bytes('\n\r', 'utf-8'))
+  line = ser.readline()
+  line = line.decode('utf-8', errors='ignore')
+  line = line.strip('\n\r')
   if re.search('\[.*\] <UI.*>:', str(line)):      # Yaesu's nmea9-formatted suffix means we found a routing block
-     routing = line.decode('utf-8', errors='ignore')
+     routing = line
      routing = re.sub(' \[.*\] <UI.*>:', ',qAR,' + USER + ':', routing)  # drop nmea/yaesu gunk, append us to routing block
-     payload = ser.readline().strip(bytes('\n\r', 'utf-8'))    # next non-empty line is the payload, strip random number of yaesu line feeds
+     payload = ser.readline()                     # next non-empty line is the payload, strip random number of yaesu line feeds
      payload = payload.decode('utf-8', errors='ignore')
+     payload = payload.strip('\n\r')
      packet = routing + payload
      if len(payload) == 0:
        print(">>> No payload, not gated:  " + packet)   # aprs-is servers also notice and drop empty packets, no spec for this
@@ -115,7 +114,6 @@ while True:
        print(">>> NOGATE, not gated: " + packet) 
        continue
      print(packet)
-#     sock.send(packet + '\r\n')  # spec calls for cr/lf, just lf worked in practice too
      sock.send(bytes(packet + '\r\n', 'utf-8'))  # spec calls for cr/lf, just lf worked in practice too
 
 ser.close()
