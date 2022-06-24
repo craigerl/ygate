@@ -33,6 +33,19 @@ Testing/QA:
 - [ ] Yaesu FT3DR   "
 - [ ] Yaesu FT5DR   "
 
+## Install
+
+Copy ygate.py to your system, Raspberry Pi OS Buster, or any Linux system with Python3.
+
+Edit the top of the file, modify three variables:
+
+        USER = "KM6XXX-1"
+        PASS = "00000"
+        POSITION = "3899.70NR12099.15W"
+        
+Your APRS password may be generated here:  https://apps.magicbug.co.uk/passcode/
+
+The 3899.70N  is your latitude with the decimal shifted, similar for longitude.
 
 ## Example
 
