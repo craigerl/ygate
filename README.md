@@ -35,7 +35,7 @@ Testing/QA:
 
 ## Install
 
-Copy [ygate.py](https://raw.githubusercontent.com/craigerl/ygate/master/ygate.py) to your system, Raspberry Pi OS Buster, or any Linux system with Python3.
+Download [ygate.py](https://raw.githubusercontent.com/craigerl/ygate/master/ygate.py) to your system, Raspberry Pi OS Buster, or any Linux system with Python3.
 
 Make the file executable, run the command:
 
