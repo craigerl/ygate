@@ -75,6 +75,7 @@ Hold down the **[DISP/Setup]** button, and change the following values:
     Output:    Packet
     WP Format: NMEA9
   
+Connect the USB cable Yaesu provided in the box  (USB to serial cable) to your computer/Pi.  For a Pi, a USB adapter cable will be needed to fit the micro USB port.
 
 ## Run ygate
 
