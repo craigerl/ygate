@@ -49,10 +49,10 @@ In the POSITION, put your latitude/longitude with the decimal shifted two places
 
 For example:
 
-38.9970 North
-120.9915 West
+38.9970 degrees North
+120.9915 degrees West
 
-becomes 3899.70NR12099.15W"
+becomes "3899.70NR12099.15W"
 
 
 ## Example
