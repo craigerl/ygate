@@ -60,6 +60,8 @@ For example:
 
 becomes "3899.70NR12099.15W"
 
+If you see errors like missing modules, or "not defined", you might need additional python libraries, try
+"sudo pip3 install pyserial" if there are serial errors, for example.
 
 ## Configure Radio 
 
