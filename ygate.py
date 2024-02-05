@@ -64,26 +64,18 @@ def send_my_position():
 
 # Try to connect to aprs-is
 def connect_to_aprsis():
-  try: 
-    sock.connect((HOST, PORT))
-    time.sleep(1)
-    sock.send(bytes(MY_LOGIN_STRING, 'utf-8'))
-    # Print the first two lines from aprsis server to see version and server name
-    print(sock_file.readline().strip())
-    print(sock_file.readline().strip())
-  except:
-    print("Unable to connect to APRS-IS server, retrying...\n")
-    try:
+  connected = False
+  while (connected == False):
+    try: 
       sock.connect((HOST, PORT))
-      time.sleep(1)
       sock.send(bytes(MY_LOGIN_STRING, 'utf-8'))
       # Print the first two lines from aprsis server to see version and server name
       print(sock_file.readline().strip())
       print(sock_file.readline().strip())
-    except Exception as e:
-      # time to bail
-      print(e + "\n")
-      os._exit(1)
+      connected = True
+    except:
+      print("Unable to connect to APRS-IS server, retrying...\n")
+      time.sleep(5)
 
 # Try to send to aprs-is
 def send_to_aprsis(packet_string):
@@ -91,7 +83,6 @@ def send_to_aprsis(packet_string):
     sock.send(bytes(packet_string, 'utf-8'))
   except ConnectionResetError:
     connect_to_aprsis()
-    time.sleep(1)
     try:
       sock.send(bytes(packet_string, 'utf-8'))
     except Exception as e:
