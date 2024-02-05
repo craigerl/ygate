@@ -21,7 +21,7 @@ To do list:
 - [ ] lower latency
 - [ ] duplicate detection and suppression with timer
 - [ ] binary inspection, handle all encodings, utf-8 errors ignored for now
-- [ ] reconnect socket after server disconnets 
+- [x] reconnect socket after server disconnets 
 
 
 Testing/QA:
