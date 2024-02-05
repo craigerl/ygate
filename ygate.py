@@ -26,53 +26,108 @@ import signal
 import os
 import socket
 
-# Please fill these out accordingly
-HOST = "noam.aprs2.net"     # north america tier2 servers round robin
-USER = "KM6XXX-1"
-PASS = "00000"
-POSITION = "3899.70NR12099.15W"
+# User specific constants (please fill these out accordingly)
+USER = "W9EN-10"
+PASS = "24981"
+LAT  = "3347.42N"
+LONG = "11153.77W"
+SERIAL_PORT = 'COM9'
+
+# APRS-IS specific constants
+HOST = "noam.aprs2.net"  # north america tier2 servers round robin
+PORT = 14580
+ICON = "&"
+OVERLAY = "R"
+
+# My position string constants
+POSITION = LAT + OVERLAY + LONG
+TO_CALL = ">APZYG2"  # Software version used as TOCALL
+MESSAGE = "Yaesu ygate https://github.com/craigerl/ygate"
+MY_POSITION_STRING = USER + TO_CALL + ",TCPIP*:!" + POSITION + ICON + MESSAGE + "\r\n"
+MY_LOGIN_STRING = "user " + USER + " pass " +  PASS + " vers ygate.py 1.00\n"
 
 
-def signal_handler(signal, frame): # kill mainline and thread on ctrl-c
-   print("Ctrl+C, exiting.")
+# Ctrl-c handler
+def signal_handler(signal, frame):
+   print("Ctrl+C detected, exiting.")
    ser.close
+   sock.shutdown(0)
+   sock.close()
+   time.sleep(2)
    os._exit(0)  
+
+# Spawn a thread that sends my position every 1800 seconds
+def send_my_position():
+  threading.Timer(1800, send_my_position).start()
+  send_to_aprsis(MY_POSITION_STRING)
+  print(MY_POSITION_STRING.strip())
+
+# Try to connect to aprs-is
+def connect_to_aprsis():
+  try: 
+    sock.connect((HOST, PORT))
+    time.sleep(1)
+    sock.send(bytes(MY_LOGIN_STRING, 'utf-8'))
+    # Print the first two lines from aprsis server to see version and server name
+    print(sock_file.readline().strip())
+    print(sock_file.readline().strip())
+  except:
+    print("Unable to connect to APRS-IS server, retrying...\n")
+    try:
+      sock.connect((HOST, PORT))
+      time.sleep(1)
+      sock.send(bytes(MY_LOGIN_STRING, 'utf-8'))
+      # Print the first two lines from aprsis server to see version and server name
+      print(sock_file.readline().strip())
+      print(sock_file.readline().strip())
+    except Exception as e:
+      # time to bail
+      print(e + "\n")
+      os._exit(1)
+
+# Try to send to aprs-is
+def send_to_aprsis(packet_string):
+  try:
+    sock.send(bytes(packet_string, 'utf-8'))
+  except ConnectionResetError:
+    connect_to_aprsis()
+    time.sleep(1)
+    try:
+      sock.send(bytes(packet_string, 'utf-8'))
+    except Exception as e:
+      # send retry failed, time to bail
+      print("Unable to send " + packet_string)
+      print(e + "\n")
+      os._exit(1)
+  except Exception as e:
+    # something bad happenned, time to bail
+    print("Unable to send " + packet_string)
+    print(e + "\n")
+    os._exit(1)
+
+
+# Register the ctrl-c signal handler
 signal.signal(signal.SIGINT, signal_handler)
 
-def send_my_position():     # thread that says our name and position every 10 mins (1200secs)
-  threading.Timer(1200, send_my_position).start()
-  position_string = USER + ">APRS,TCPIP*:!" + POSITION + "&Yaesu Ygate https://github.com/craigerl/ygate \n"
-  sock.send(bytes(position_string, 'utf-8'))
-  print(position_string.strip())
-
-
-# Setup socket connection to APRS-IS server
-try: 
-  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  sock.connect((HOST, 14580))
-except Exception as e:
-  print("Unable to connect to APRS-IS server.\n")
-  os._exit(1)
-#sock_file = sock.makefile(mode='r', bufsize=0 )
-sock_file = sock.makefile(mode='r' )
+# Setup a socket for connection to APRS-IS server
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock_file = sock.makefile(mode='r')
 sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)  # disable nagle algorithm   
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 512)  # buffer size
 
-time.sleep(2)
+# Connect to the server
+connect_to_aprsis()
 
-#login
-loginstring=bytes("user " + USER + " pass " +  PASS + " vers ygate.py 1.00\n", 'utf-8')
-sock.send(loginstring)
-
-#print the first two lines from aprsis server to see version and server name as fyi
-print(sock_file.readline().strip())
-print(sock_file.readline().strip())
-
-#start position beacon thread
+# Start the position beacon thread
 send_my_position()
 
-# open first usb serial port
-ser = serial.Serial('/dev/ttyUSB0', 9600)
+# Now open the specified serial port
+try:
+  ser = serial.Serial(SERIAL_PORT, 9600)
+except Exception as e:
+  print("Unable to open " + SERIAL_PORT + "\n")
+  print(e + "\n")
+  os._exit(1)
 
 # read nmea9 sentences from yaesu radio
 # arrange them into aprs packet strings
@@ -93,7 +148,7 @@ while True:
   line = line.strip('\n\r')
   if re.search('\[.*\] <UI.*>:', str(line)):      # Yaesu's nmea9-formatted suffix means we found a routing block
      routing = line
-     routing = re.sub(' \[.*\] <UI.*>:', ',qAR,' + USER + ':', routing)  # drop nmea/yaesu gunk, append us to routing block
+     routing = re.sub(' \[.*\] <UI.*>:', ',qAO,' + USER + ':', routing)  # drop nmea/yaesu gunk, append us to routing block
      payload = ser.readline()                     # next non-empty line is the payload, strip random number of yaesu line feeds
      payload = payload.decode('utf-8', errors='ignore')
      payload = payload.strip('\n\r')
@@ -114,8 +169,9 @@ while True:
        print(">>> NOGATE, not gated: " + packet) 
        continue
      print(packet)
-     sock.send(bytes(packet + '\r\n', 'utf-8'))  # spec calls for cr/lf, just lf worked in practice too
+     send_to_aprsis(packet + "\r\n")
 
+# We never get here, but these things happen in the ctrl-c handler
 ser.close()
 sock.shutdown(0)
 sock.close()
