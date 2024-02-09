@@ -17,11 +17,11 @@ Be sure to set your callsign, password and position at the top of the script.
 To do list:
 - [x] translate yaesu output into aprs packets, upload to aprs-is servers
 - [ ] invalid callsign detection, currently filtered by aprs-is servers
-- [X] convert telnet sandbox to socket(s)
-- [ ] lower latency  
+- [x] convert telnet sandbox to socket(s)
+- [ ] lower latency
 - [ ] duplicate detection and suppression with timer
 - [ ] binary inspection, handle all encodings, utf-8 errors ignored for now
-- [ ] reconnect socket after server disconnets 
+- [x] reconnect socket after server disconnets 
 
 
 Testing/QA:
