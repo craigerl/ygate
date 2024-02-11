@@ -17,14 +17,15 @@ Be sure to set your callsign, password and position at the top of the script.
 To do list:
 - [x] translate yaesu output into aprs packets, upload to aprs-is servers
 - [ ] invalid callsign detection, currently filtered by aprs-is servers
-- [X] convert telnet sandbox to socket(s)
-- [ ] lower latency  
+- [x] convert telnet sandbox to socket(s)
+- [ ] lower latency
 - [ ] duplicate detection and suppression with timer
 - [ ] binary inspection, handle all encodings, utf-8 errors ignored for now
-- [ ] reconnect socket after server disconnets 
+- [x] reconnect socket after server disconnets 
 
 
 Testing/QA:
+- [x] Yaesu FTM-500
 - [x] Yaesu FTM-400
 - [x] Yaesu FTM-100
 - [ ] Yaesu FTM-300
@@ -43,25 +44,32 @@ Make the file executable, run the command:
 
     chmod 755 ygate.py
 
-Edit the top of the file (**nano ygate.py**), modify three variables:
+Edit the top of the file (**nano ygate.py**), and modify these variables to match your station:
 
         USER = "KM6XXX-1"
         PASS = "00000"
-        POSITION = "3899.70NR12099.15W"
+        LAT  = "3899.70N"
+        LONG = "12099.15W"
+        SERIAL_PORT = 'COM9'
         
+
 Your APRS password may be generated here:  https://apps.magicbug.co.uk/passcode/
 
-In the POSITION, put your latitude/longitude with the decimal shifted two places to the right, similar for longitude.
+The latitude/longitude fields have their decimal point shifted two places to the right.
 
 For example:
 
-38.9970 degrees North
-120.9915 degrees West
+        38.9970 degrees North
+        120.9915 degrees West
 
-becomes "3899.70NR12099.15W"
+becomes:
 
-If you see errors like missing modules, or "not defined", you might need additional python libraries, try
-"sudo pip3 install pyserial" if there are serial errors, for example.
+        LAT  = "3899.70N"
+        LONG = "12099.15W"
+
+If you see errors like missing modules, or "not defined", you might need additional python libraries.
+For example, if you see serial errors, make sure pyserial is installed.
+        "sudo pip3 install pyserial"
 
 ## Configure Radio 
 
