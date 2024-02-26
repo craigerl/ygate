@@ -81,7 +81,7 @@ Hold down the **[DISP/Setup]** button, and change the following values:
   
 **Data menu**
 
-    Speed:     9600
+    Speed:     1200
     Output:    Packet
     WP Format: NMEA9
   
