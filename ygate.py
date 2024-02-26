@@ -32,8 +32,8 @@ USER = "W2xxx-1"
 PASS = "12345"
 LAT  = "4068.92N"
 LONG = "7404.44W"
-SERIAL_PORT = 'COM9' # Windows
-#SERIAL_PORT = '/dev/ttyUSB0' # Linux
+#SERIAL_PORT = 'COM9' # Windows
+SERIAL_PORT = '/dev/ttyUSB0' # Linux
 
 # APRS-IS specific constants
 HOST = "noam.aprs2.net"  # north america tier2 servers round robin
