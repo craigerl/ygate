@@ -48,8 +48,8 @@ Edit the top of the file (**nano ygate.py**), and modify these variables to matc
 
         USER = "KM6XXX-1"
         PASS = "00000"
-        LAT  = "3899.70N"
-        LONG = "12099.15W"
+        LAT  = "3819.70N"
+        LONG = "12019.15W"
         SERIAL_PORT = 'COM9'
         
 
@@ -59,13 +59,13 @@ The latitude/longitude fields have their decimal point shifted two places to the
 
 For example:
 
-        38.9970 degrees North
-        120.9915 degrees West
+        38 degrees and 22.56 minutes North
+        120 degrees and 19.15 minutes West
 
 becomes:
 
-        LAT  = "3899.70N"
-        LONG = "12099.15W"
+        LAT  = "3822.56N"
+        LONG = "12019.15W"
 
 If you see errors like missing modules, or "not defined", you might need additional python libraries.
 For example, if you see serial errors, make sure pyserial is installed.
