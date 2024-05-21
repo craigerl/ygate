@@ -81,7 +81,6 @@ def reset_socket():
   except Exception as e:
     print(">>> FAILED to close socket\n")
     print(e)
-    os._exit(1)  # If we can't do this, we're done!
 
 # Try to connect to aprs-is
 def connect_to_server():
