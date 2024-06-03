@@ -104,3 +104,8 @@ Connect the USB cable Yaesu provided in the box  (USB to serial cable) to your c
     KJ6DZB-3>APAVT5,ALDER,ACARC-1,WIDE2*,qAR,KM6LYW-4:=3849.70N/12002.21W>025/000/A=007453144.390MHz 4.12V  70.7F|S!).9%Q#N|
     WA6MAT-1>APT310,W6SCR-5,ACARC-1,WIDE2*,qAR,KM6LYW-4:!4032.25N\12219.49WO174/000/A=000475/Matthew's Truck
 
+## Direwatch integration (tft display)
+https://github.com/craigerl/direwatch
+
+    ./ygate.py  > /tmp/output.txt &
+    ./direwatch.py -o -l /tmp/out/put.txt
