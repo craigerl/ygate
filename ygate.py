@@ -195,7 +195,7 @@ while True:
           continue
 
         # Send the packet to APRS-IS
-        print(packet)
+        print("[0.0] " + packet)
         if (send_to_server(packet + "\r\n") == False):
           reset_socket()
           time.sleep(5)
