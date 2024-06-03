@@ -108,7 +108,7 @@ Connect the USB cable Yaesu provided in the box  (USB to serial cable) to your c
 https://github.com/craigerl/direwatch
 
     ./ygate.py  > /tmp/output.txt &
-    ./direwatch.py -o -l /tmp/out/put.txt
+    ./direwatch.py -o -s /tmp/screenshot.png -l /tmp/out/put.txt
 
 ![Ygate with Direwatch](http://craiger.org/ygatescreen.png)
 
