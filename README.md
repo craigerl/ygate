@@ -110,5 +110,5 @@ https://github.com/craigerl/direwatch
     ./ygate.py  > /tmp/output.txt &
     ./direwatch.py -o -l /tmp/out/put.txt
 
-![alt text](http://craiger.org/ygatescreen.png)
+![Ygate with Direwatch](http://craiger.org/ygatescreen.png)
 
